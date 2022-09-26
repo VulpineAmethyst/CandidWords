@@ -55,25 +55,21 @@ int main(int argc, char **argv) {
     // Are these arguments acceptable?
     for (std::string::size_type i = 0; i < yellow.length(); i++) {
         if (!std::isalpha(yellow[i])){
-            std::cout << "invalid yellow " << yellow[i] << " at " << i << std::endl;
+            std::cerr << "invalid yellow " << yellow[i] << " at " << i << std::endl;
             usage(argv[0]);
             return -1;
         }
     }
-    for (std::string::size_type i = 0; i < green.length(); i++)
-    {
-        if (!std::isalpha(green[i]) && (green[i] != '?'))
-        {
-            std::cout << "invalid green: " << green[i] << std::endl;
+    for (std::string::size_type i = 0; i < green.length(); i++) {
+        if (!std::isalpha(green[i]) && (green[i] != '?')) {
+            std::cerr << "invalid green at" << green[i] << " at " << i << std::endl;
             usage(argv[0]);
             return -1;
         }
     }
-    for (std::string::size_type i = 0; i < guessed.length(); i++)
-    {
-        if (!std::isalpha(guessed[i]))
-        {
-            std::cout << "invalid guessed: " << yellow[i] << std::endl;
+    for (std::string::size_type i = 0; i < guessed.length(); i++) {
+        if (!std::isalpha(guessed[i])) {
+            std::cerr << "invalid guessed " << yellow[i] << " at " << i << std::endl;
             usage(argv[0]);
             return -1;
         }
@@ -120,7 +116,7 @@ int main(int argc, char **argv) {
 }
 
 void usage(char *progname) {
-    std::cout << "Usage: " << progname << " <yellow> <green> <guessed>\n\n" <<
+    std::cerr << "Usage: " << progname << " <yellow> <green> <guessed>\n\n" <<
         "<yellow> must be up to five letters which are contained in the word.\n" <<
         "<green> must be either question marks or correctly-placed letters.\n" <<
         "<guessed> is all of the letters guessed so far.\n";
