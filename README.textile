@@ -1,0 +1,12 @@
+h1. Candid Words
+
+This is a basic algorithm for generating a list of Wordle candidates based on yellow and green tiles.
+
+h2. Building
+
+You will need a C++11 compiler, for instance @g++ -std=c++11@. If you want to use a specific word list, save it as a plaintext file at 'words.txt' and run @convert.py@ before compiling the program.
+
+h3. Copyright
+
+The code is made available under BSD-3-Clause.
+
