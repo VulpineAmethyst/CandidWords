@@ -41,6 +41,32 @@
 
 void usage(char *);
 
+std::vector<std::string> yellow_search(std::string invalid, std::string yellow) {
+    std::vector<std::string> candidates;
+    for (std::vector<std::string>::size_type i = 0; i < wordv.size(); i++) {
+        std::string word(wordv[i]);
+        bool valid = false;
+        for (std::string::size_type j = 0; j < yellow.length(); j++) {
+            if (word.find(yellow[j]) == std::string::npos) {
+                valid = false;
+                break;
+            } else {
+                valid = true;
+            }
+        }
+        for (int j = 0; j < 5; j++) {
+            if (invalid.find(word[j]) != std::string::npos) {
+                valid = false;
+                break;
+            }
+        }
+        if (valid) {
+            candidates.push_back(word);
+        }
+    }
+    return candidates;
+}
+
 std::vector<std::string> green_search(std::string invalid, std::string yellow, std::string green) {
     std::vector<std::string> candidates;
 
@@ -119,6 +145,8 @@ int main(int argc, char **argv) {
     }
     if (green != "?????") {
         candidates = green_search(invalid, yellow, green);
+    } else {
+        candidates = yellow_search(invalid, yellow);
     }
 
     std::for_each(candidates.begin(), candidates.end(), [](std::string n) { std::cout << n << " "; });
