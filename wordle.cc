@@ -41,6 +41,42 @@
 
 void usage(char *);
 
+std::vector<std::string> green_search(std::string invalid, std::string yellow, std::string green) {
+    std::vector<std::string> candidates;
+
+    for (std::vector<std::string>::size_type i = 0; i < wordv.size(); i++) {
+        bool valid = false;
+        std::string word(wordv[i]);
+
+        for (int j = 0; j < 5; j++) {
+            if (invalid.find(word[j]) != std::string::npos) {
+                valid = false;
+                break;
+            }
+            if (green[j] == '?') {
+                continue;
+            }
+            if (word[j] == green[j]) {
+                valid = true;
+            }
+            else {
+                valid = false;
+                break;
+            }
+        }
+        for (std::string::size_type j = 0; j < yellow.length(); j++) {
+            if (word.find(yellow[j]) == std::string::npos) {
+                valid = false;
+                break;
+            }
+        }
+        if (valid) {
+            candidates.push_back(word);
+        }
+    }
+    return candidates;
+}
+
 int main(int argc, char **argv) {
     if (argc != 4) {
         usage(argv[0]);
@@ -81,36 +117,10 @@ int main(int argc, char **argv) {
             invalid.append(1, guessed[i]);
         }
     }
-
-    for (std::vector<std::string>::size_type i = 0; i < wordv.size(); i++) {
-        bool valid = false;
-        std::string word(wordv[i]);
-
-        for (int j = 0; j < 5; j++) {
-            if (invalid.find(word[j]) != std::string::npos) {
-                valid = false;
-                break;
-            }
-            if (green[j] == '?') {
-                continue;
-            }
-            if (word[j] == green[j]) {
-                valid = true;
-            } else {
-                valid = false;
-                break;
-            }
-        }
-        for (std::string::size_type j = 0; j < yellow.length(); j++) {
-            if (word.find(yellow[j]) == std::string::npos) {
-                valid = false;
-                break;
-            }
-        }
-        if (valid) {
-            candidates.push_back(word);
-        }
+    if (green != "?????") {
+        candidates = green_search(invalid, yellow, green);
     }
+
     std::for_each(candidates.begin(), candidates.end(), [](std::string n) { std::cout << n << " "; });
     std::cout << std::endl;
 }
