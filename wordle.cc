@@ -139,6 +139,9 @@ int main(int argc, char **argv) {
 
     // What letters aren't valid?
     for (std::string::size_type i = 0; i < guessed.length(); i++) {
+        if (green.find(guessed[i]) != std::string::npos) {
+            continue;
+        }
         if (yellow.find(guessed[i]) == std::string::npos) {
             invalid.append(1, guessed[i]);
         }
